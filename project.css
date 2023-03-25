@@ -1,8 +1,20 @@
 #wordle_grid{
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: auto;
     gap: 10px;
     padding: 10px;
-    margin-top: -10px;
+    margin-top: 10px;
     border: red 1px solid;
+}
+
+.div_word_Display{
+    display: grid;
+    grid-template-columns: 10px 10px 10px 10px 10px;
+    gap: 100px;
+    border: red 1px solid;
+}
+
+.pElementWordDisplayStyle{
+    border: 1px red solid;
+    width: 20px;
 }
