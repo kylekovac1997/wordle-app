@@ -12,9 +12,58 @@
     grid-template-columns: 10px 10px 10px 10px 10px;
     gap: 100px;
     border: red 1px solid;
+    text-align: center;
 }
 
 .pElementWordDisplayStyle{
-    border: 1px red solid;
-    width: 20px;
+    width: 1em;
+    height: 1em;
+    border: 1px solid black;
+    font-size: 1.5em;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    background: white;
+}
+
+.contains_word{
+    background: yellow;
+}
+
+.correct{
+    background: green;
+}
+
+.key{
+    font-size: 50px;
+    width: 80px;
+    background-color: rgb(82, 78, 78);
+    color: white;
+}
+
+.row{
+    display: flex;
+    flex-shrink: 3; 
+    margin-top: 5px;
+}
+
+#row-1{
+    gap: 4px;
+   
+}
+
+#row-2{
+    
+    margin-top: 5px;
+    gap: 4px;
+}
+
+#row-3{
+    margin-top: 5px;
+    gap: 4px;
+}
+
+#row-4{
+    margin-top: 5px;
+    gap: 4px;
 }
