@@ -1,37 +1,44 @@
+body{
+    text-align: center;
+}
 #wordle_grid{
     display: grid;
     grid-template-columns: auto;
     gap: 10px;
     padding: 10px;
+    margin: 0 auto;
     margin-top: 10px;
     border: red 1px solid;
 }
 
 .div_word_Display{
+    margin: auto;
     display: grid;
     grid-template-columns: 10px 10px 10px 10px 10px;
-    gap: 100px;
-    border: red 1px solid;
-    text-align: center;
+    gap: 3rem;
 }
 
 .pElementWordDisplayStyle{
-    width: 1em;
-    height: 1em;
+    width: 2em;
+    height: 2em;
     border: 1px solid black;
     font-size: 1.5em;
     text-align: center;
     padding: 0;
-    margin: 0;
     background: white;
+    border-radius: 30%;
 }
 
-.contains_word{
+.partially-correct{
     background: yellow;
 }
 
 .correct{
     background: green;
+}
+
+.incorrect{
+    background: rgb(255, 0, 0);
 }
 
 .key{
