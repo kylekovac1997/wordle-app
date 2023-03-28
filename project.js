@@ -1,81 +1,88 @@
-import {validWords} from './wordle-Words.js'
+import { validWords } from './wordle-Words.js';
 
-//generates the random word from the import of validWords array
-let randomWord = validWords[Math.floor(Math.random() * validWords.length)];
-let wordlegrid = document.getElementById('wordle_grid'); 
-let winCounter = 0
+function initializeWordleGrid() {
+  // Generate the random word from the import of validWords array
+  let randomWord = validWords[Math.floor(Math.random() * validWords.length)];
+  let wordlegrid = document.getElementById('wordle_grid');
+  console.log(randomWord);
 
-//creates the display grid for the letters
-for(let i = 1; i <= 6; i++){
-  let divWordDisplay = document.createElement('div');
-  divWordDisplay.setAttribute("class", 'div_word_Display');
-  wordlegrid.appendChild(divWordDisplay);
- 
-  let characters = randomWord.split('');
-  for(let j = 0; j < characters.length; j++){  
-    let pElementWordDisplay = document.createElement("input");
-    divWordDisplay.appendChild(pElementWordDisplay);
-    pElementWordDisplay.textContent = characters[j];
-    pElementWordDisplay.classList.add('pElementWordDisplayStyle');
-    pElementWordDisplay.setAttribute('maxlength', 1);
+  // Creates the display grid for the letters
+  for (let i = 1; i <= 6; i++) {
+    let divWordDisplay = document.createElement('div');
+    divWordDisplay.setAttribute('class', 'div_word_Display');
+    wordlegrid.appendChild(divWordDisplay);
 
-    pElementWordDisplay.addEventListener('input', (event) => {
-      let inputElement = event.target;
-      let letterValue = inputElement.value;
+    let characters = randomWord.split('');
 
-      let index = Array.from(inputElement.parentElement.children).indexOf(inputElement);
-    
-      //function to check if the letter is correct, partially correct or incorrect      
-      for (let j in characters) {
-        if (letterValue.toUpperCase() == characters[index]) {
-          inputElement.classList.add("correct");
-        } else if (
-          characters.includes(letterValue.toUpperCase())) 
-        {
-          inputElement.classList.add("partially-correct");
+    for (let j = 0; j < characters.length; j++) {
+      let inputElementWordDisplay = document.createElement('input');
+      divWordDisplay.appendChild(inputElementWordDisplay);
+      inputElementWordDisplay.value = ''; // Set the initial value to empty
+      inputElementWordDisplay.classList.add('pElementWordDisplayStyle');
+      inputElementWordDisplay.setAttribute('maxlength', 1);
+
+      inputElementWordDisplay.addEventListener('input', (event) => {
+        let inputElement = event.target;
+
+        // Check if all the input elements in the current div are filled
+        let isDivFilled = true;
+        const inputElementsInDiv = divWordDisplay.querySelectorAll('input');
+        inputElementsInDiv.forEach((input) => {
+          if (!input.value) {
+            isDivFilled = false;
+          }
+        });
+
+        if (isDivFilled) {
+          checkWord(divWordDisplay, inputElementsInDiv, characters); // Check if the word is valid
         } else {
-          inputElement.classList.add("incorrect");
+          // Move focus to the next input element
+          inputElement.nextElementSibling.focus();
         }
-      }
-      
-      // Check if all input elements in the div have values
-      let allInputsFilled = Array.from(inputElement.parentElement.children).every(child => child.value);
-     
-      if (allInputsFilled) {
-        // Disable all input elements in the div
-        Array.from(inputElement.parentElement.children).forEach(child => child.disabled = true);
-        // Call checkWord function
-        checkWord(inputElement.parentElement);
-      } else {
-        // Move focus to the next input element
-        inputElement.nextElementSibling.focus();
-      }
-    });
+      });
+    }
   }
 }
 
-//checks players input to make sure its a word
-function checkWord(parentElement) {
-  // Get all the input elements
-  const inputElements = parentElement.querySelectorAll('input');
+function checkWord(divWordDisplay, inputElements, characters) {
+  let inputValues = '';
 
-  // Get an array of input values
-  const inputValues = Array.from(inputElements).map(inputElement => inputElement.value).join('');
+  inputElements.forEach((inputElement) => {
+    inputValues += inputElement.value.toUpperCase(); // Combine all the input values
+  });
 
-  // Check if the input word is valid
-  const isValidWord = validWords.includes(inputValues.toUpperCase());
+  let isValidWord = validWords.includes(inputValues);
 
   if (isValidWord) {
-    // The input word is valid
-    console.log('Valid word');
-    
     // Move focus to the first input element of the next div
-    const nextDiv = parentElement.nextElementSibling;
+    const nextDiv = divWordDisplay.nextElementSibling;
+   
     if (nextDiv) {
       nextDiv.querySelector('input').focus();
+      
+      for (let char in inputElements) {
+        if (inputValues[char] == characters[char]) {
+          inputElements[char].classList.add('correct');
+        } else if (characters.includes(inputValues[char])) {
+          inputElements[char].classList.add('partially-correct');
+        } else {
+          inputElements[char].classList.add('incorrect');
+        }
+      }
     }
   } else {
     // The input word is invalid
-    console.log('Invalid word');
+    alert('Invalid word. Enter a new word');
+    inputElements.forEach((inputElement) => {
+      inputElement.value = ''; // Reset the input values
+      inputElement.disabled = false; // Enable the input elements
+      inputElement.classList.remove('correct', 'partially-correct', 'incorrect');
+    });
+    inputElements[0].focus();
   }
+
+
+
 }
+
+initializeWordleGrid();
