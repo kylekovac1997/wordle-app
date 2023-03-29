@@ -36,6 +36,9 @@ function gameFunction() {
         if (j === 0) {
           currentColumn = gridColumn; // set the current column to the first column in the row
         }
+        gridColumn.addEventListener('input', ()=>{
+          currentColumn = this;
+        })
       }
     }
 
@@ -58,7 +61,7 @@ function gameFunction() {
             }
             break;
           case 'ent':
-            checkWord(currentWord);
+            checkWord(currentWord,gridColumns);
             currentRow += 1;
             if (currentRow >= attempts) {
               currentRow = 0;
@@ -83,55 +86,65 @@ function gameFunction() {
 
   const checkWord = () => {
     const wordColumns = document.querySelectorAll('.grid-row#row-' + currentRow + ' .grid-column');
+    const joinedWord = [...wordColumns].map(column => column.textContent).join('');
     const correctColumns = [];
     const partiallyCorrectColumns = [];
     const incorrectColumns = [];
+    let correctCount = 0;
   
-    for (let i = 0; i < currentWord.length; i++) {
-      const userInput = wordColumns[i].textContent;
-      const currentWordLetter = currentWord[i];
+    if (validWords.includes(joinedWord)) {
+      for (let i = 0; i < joinedWord.length; i++) {
+        const userInput = wordColumns[i].textContent;
+        const currentWordLetter = currentWord[i];
   
-      if (userInput === currentWordLetter) {
-        correctColumns.push(wordColumns[i]);
-      } else if (currentWord.includes(userInput)) {
-        partiallyCorrectColumns.push(wordColumns[i]);
+        if (userInput === currentWordLetter) {
+          correctCount++;
+          correctColumns.push(wordColumns[i]);
+        } else if (currentWord.includes(userInput)) {
+          partiallyCorrectColumns.push(wordColumns[i]);
+        } else {
+          incorrectColumns.push(wordColumns[i]);
+        }
+      }
+  
+      if (correctCount === 5) {
+        for (let column of wordColumns) {
+          column.classList.add('correct');
+        }
+        alert('You won!');
+      } else if (correctCount > 0) {
+        for (let column of correctColumns) {
+          column.classList.add('correct');
+        }
+        for (let column of partiallyCorrectColumns) {
+          column.classList.add('partially-correct');
+        }
+        for (let column of incorrectColumns) {
+          column.classList.add('incorrect');
+        }
       } else {
-        incorrectColumns.push(wordColumns[i]);
-      }
-    }
-  
-    if (correctColumns.length === 5) {
-      for (let column of wordColumns) {
-        column.classList.add('correct');
-      }
-      alert('You won!');
-    } else if (correctColumns.length > 0) {
-      for (let column of correctColumns) {
-        column.classList.add('correct');
-      }
-      for (let column of partiallyCorrectColumns) {
-        column.classList.add('partially-correct');
-      }
-      for (let column of incorrectColumns) {
-        column.classList.add('incorrect');
+        for (let column of partiallyCorrectColumns) {
+          column.classList.add('partially-correct');
+        }
+        for (let column of incorrectColumns) {
+          column.classList.add('incorrect');
+        }
       }
     } else {
-      for (let column of incorrectColumns) {
-        column.classList.add('incorrect');
-      }
-    }
-
-    if(wordColumns !== randomWord){
-      alert("invalid word")
-      wordColumns.forEach((column)=>{
+      alert('Invalid word');
+      wordColumns.forEach(column => {
         column.textContent = '';
-        column.disable = false;
         column.classList.remove('correct', 'partially-correct', 'incorrect');
-        
       });
-      column[0].focus();
+      currentRow -= 1;
+      if (currentRow < 0) {
+        currentRow = attempts - 1;
+      }
+      currentColumn = gridColumns[currentRow * 5];
+      currentColumn.focus();
     }
-  }
+  };
+  
 }  
 
 gameFunction();

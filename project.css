@@ -11,14 +11,14 @@ body{
     border: red 1px solid;
 }
 
-.div_word_Display{
+.grid-row{
     margin: auto;
     display: grid;
     grid-template-columns: 10px 10px 10px 10px 10px;
     gap: 3rem;
 }
 
-.pElementWordDisplayStyle{
+.grid-column{
     width: 2em;
     height: 2em;
     border: 1px solid black;
@@ -42,6 +42,7 @@ body{
 }
 
 .key{
+    
     display: inline-block;
     width: 40px;
     height: 40px;
