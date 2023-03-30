@@ -11,12 +11,10 @@ function gameFunction() {
   }
 
   const initializeWordleGrid = () => {
-    console.log("Resetting game board...");
     let wordleGrid = document.getElementById('wordle_grid');
     wordleGrid.innerHTML = '';
-
     randomWord();
-    
+    console.log('currentWord:', currentWord);
     // Creates an array to hold all grid columns
     let gridColumns = []; 
 
@@ -104,6 +102,10 @@ function gameFunction() {
     const incorrectColumns = [];
     let correctCount = 0;
   
+    if (joinedWord === '') {
+      return;
+    }
+  
     if (validWords.includes(joinedWord)) {
       for (let i = 0; i < joinedWord.length; i++) {
         const userInput = wordColumns[i].textContent;
@@ -112,7 +114,7 @@ function gameFunction() {
         if (userInput === currentWordLetter) {
           correctCount++;
           correctColumns.push(wordColumns[i]);
-        } else if (userInput && currentWord.includes(userInput)) {
+        } else if (currentWord.includes(userInput)) {
           partiallyCorrectColumns.push(wordColumns[i]);
         } else {
           incorrectColumns.push(wordColumns[i]);
@@ -167,8 +169,13 @@ function gameFunction() {
     let playAgainBtn = document.getElementById('play_Again');
   
     playAgainBtn.addEventListener('click', () => {
+      winText.textContent = '';
       winDialog.close();
-      resetGame();
+      currentRow = 0;
+      currentColumn = 0;
+      currentWord = '';
+      gridColumns = initializeWordleGrid();
+      keyboard(gridColumns);
     });
   };
   
@@ -176,9 +183,7 @@ function gameFunction() {
     // implementation for lost function
   };
   
-  const resetGame = () => {
-    location.reload();
-  };
+ 
 }
 
   window.addEventListener('load', function() {
