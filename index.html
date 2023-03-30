@@ -5,15 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WordleWordle</title>
-    <link rel="stylesheet" href="project.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <header> WordleWordle</header>
     
-        <div id="wordle_grid">
-    
-    
-        </div>
+        <div id="wordle_grid"></div>
+
+        <dialog id="win">
+            <img src="win.jpeg" alt="win_picture">
+            <button id="play_Again">PLAY AGAIN</button>
+        </dialog>
+
+        <dialog id="game_Rules">
+            <header>WordleWordle</header>
+            <h2>The Aim</h2>
+            <section><p>
+                Your challenge is to guess a five-letter word in six attempts. Each time you guess, you're told which of your chosen letters are in the target word, 
+                <br>and whether they are in the right place.
+            </p></section>
+            <button  id='start_Game'>Start Game</button>
+        </dialog>
+        
     <!-- Displays the keyboard on the page   -->
     <div class="keyboard">
        <div class="row" id="row-1">
@@ -42,7 +55,7 @@
           
        </div>
        <div class="row" id="row-3">
-        <button class="key" id="enter">&#8629;</button>
+        <button class="key" id="enter">ent</button>
            <button class="key">Z</button>
            <button class="key">X</button>
            <button class="key">C</button>
@@ -56,6 +69,6 @@
 </div>
 
 </body>
-<script type="module"  src="project.js"></script>
+<script type="module"  src="index.js"></script>
 <script src="wordle-Words.js"></script>
 </html>
