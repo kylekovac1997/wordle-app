@@ -1,0 +1,271 @@
+body{
+    text-align: center;
+    max-width: 600px;
+    margin: auto;
+    background: url(background.png)
+}
+
+header{
+    font-size: 3em;
+    color: rgb(37, 37, 37);
+    text-shadow: 1px 1px 0 #fff, 2px 2px 0 rgb(141, 163, 204), 3px 3px 0 rgb(116, 144, 192), 4px 4px 0 rgb(93, 128, 185), 5px 5px 0 rgba(71, 114, 182, 0.863), 6px 6px 0 rgb(52, 103, 177), 7px 7px 0 rgb(40, 90, 170);
+    letter-spacing: 2px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+h2{
+    font-size: 2em;
+    color: rgb(37, 37, 37);
+    text-shadow: 1px 1px 0 #fff, 2px 2px 0 rgb(141, 163, 204), 3px 3px 0 rgb(116, 144, 192), 4px 4px 0 rgb(93, 128, 185), 5px 5px 0 rgba(71, 114, 182, 0.863), 6px 6px 0 rgb(52, 103, 177), 7px 7px 0 rgb(40, 90, 170);
+    letter-spacing: 2px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+#main_Header{
+    display: none;
+}
+
+#game_Rules{
+    background-color: rgb(224, 169, 102);
+    cursor:pointer;
+}
+
+#start_Game{
+    position:relative; 
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: rgb(247, 243, 243);
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+  
+#start_Game:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 6px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+#grid_container{
+    max-width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.remaining-guesses {
+    margin-left: 40px;
+    padding: 20px;
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    display: none;
+}
+  
+#guesses-counter {
+    color: #f44336; /* Change the color to your preference */
+}
+
+#wordle_grid{
+    display: grid;
+    grid-template-columns: auto;
+    gap: 10px;
+    padding: 10px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.grid-row{
+    margin: auto;
+    display: grid;
+    grid-template-columns: 10px 10px 10px 10px 10px;
+    gap: 3rem;
+    
+}
+
+#row-3-keyboard{ 
+    margin-right: 53px;
+}
+
+@keyframes pulse {         
+    0% {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgb(20, 141, 240);
+        transform: translateY(0);
+    }
+    50% {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 4px 8px rgb(20, 141, 240);
+        transform: translateY(-2px);
+    }
+    100% {
+        box-shadow: 0 10px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgb(20, 141, 240);
+        transform: translateY(0);
+    }
+    50%{
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 4px 8px rgb(20, 141, 240);
+        transform: translateY(-2px);
+    }
+}
+  
+.grid-column {
+    width: 2em;
+    height: 2em;
+    border: 1px solid black;
+    font-size: 1.5em;
+    text-align: center;
+    padding: 0;
+    background: white;
+    border-radius: 30%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.1s ease-in-out;
+    animation: pulse 2s infinite; /* Add pulse animation */
+}
+  
+.grid-column:active {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(1px);
+}
+
+.partially-correct{
+    background: yellow;
+}
+
+.correct{
+    background: green;
+}
+
+.incorrect{
+    background: rgb(255, 0, 0);
+}
+
+.keyboard{
+    margin-top: 15px;
+    margin-left: 40px;
+}
+.key{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 10%;
+    margin: 5px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(121, 117, 117);
+    border: none;
+    box-shadow: 0 20px 6px rgb(0, 0, 0, 0.2);
+    transition: all 0.1s ease-in-out;
+}
+  
+.key:hover {
+    background-color: rgb(85, 81, 81);
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgb(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+.key:active {
+    box-shadow: none;
+    transform: translate(2px);
+}
+  
+#give_Up{
+    position:relative;
+    display: none;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: rgb(247, 243, 243);
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    margin-left: 260px;
+}
+  
+#give_Up:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 6px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+#give_Up_Dialog{
+    background: url(background.png);
+    max-width: 500px;
+}  
+
+#play_Again{
+    position:relative;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: rgb(247, 243, 243);
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+#play_Again:hover{
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 6px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+#lost{
+    background: url(background.png);
+    max-width: 500px;
+}  
+
+#lost_picture{
+    width: 500px;
+    height: 500px;
+}
+
+#play_Again_Lost{
+    position:relative;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: rgb(247, 243, 243);
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+#play_Again_Lost:hover{
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 6px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+#win{
+    background: url(background.png);
+    max-width: 500px;
+}  
+
+#win_picture{
+    width: 400px;
+    height: 400px;
+}
+
+#play_Again_Win{
+    position:relative;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: rgb(247, 243, 243);
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+#play_Again_Win:hover{
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 6px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+

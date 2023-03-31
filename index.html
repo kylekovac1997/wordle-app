@@ -8,67 +8,88 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <header> WordleWordle</header>
-    
-        <div id="wordle_grid"></div>
+<header id="main_Header"> WORDLEWORDLE</header>
 
-        <dialog id="win">
-            <img src="win.jpeg" alt="win_picture">
-            <button id="play_Again">PLAY AGAIN</button>
-        </dialog>
+<div id="grid_Container"> 
+    <div id="wordle_grid"></div>
 
-        <dialog id="game_Rules">
-            <header>WordleWordle</header>
-            <h2>The Aim</h2>
-            <section><p>
-                Your challenge is to guess a five-letter word in six attempts. Each time you guess, you're told which of your chosen letters are in the target word, 
-                <br>and whether they are in the right place.
-            </p></section>
-            <button  id='start_Game'>Start Game</button>
-        </dialog>
+    <section id="side_table">
+        <div id="remaining-guesses" class="remaining-guesses">Remaining Attempts: <span id="guesses-counter">6</span></div>
+        <button id="give_Up" >GIVE UP</button> 
+    </section>
+</div>
+
+<dialog id="win">
+    <img id="win_picture" src="win.jpeg" alt="win_picture">
+    <p id="win_Text"></p>
+    <button id="play_Again_Win">PLAY AGAIN</button>
+</dialog>
+
+<dialog id="lost">
+    <img id = 'lost_picture' src="lost.jpeg" alt="lost_picture">
+    <p id="lost_Text"></p>
+    <button id="play_Again_Lost">PLAY AGAIN</button>
+</dialog>
+
+<dialog id="give_Up_Dialog">
+    <img src="giveUp.gif" alt="give_up_gif">
+    <button id="play_Again">PLAY AGAIN</button>
+    <p id="give_Up_Text"></p> 
+   
+</dialog>
+
+<dialog id="game_Rules">
+    <header>WordleWordle</header>
+        <h2>The Game</h2>
+        <section><p>
+            Your <strong>challenge </strong>is to guess a five-letter word in six attempts. <br>Each time you guess, you're told which of your chosen letters are in the target word, 
+            <br>and whether they are in the right place.<br>
+            <span style="color: red;">RED</span> Means Incorrect word. <br> <span style="color: yellow;">YELLOW</span> Means correct word, wrong postition. <br> <span style="color: green;">GREEN</span> Means correct postition.
+        </p></section>
+        <button  id='start_Game'>Start Game</button>
+</dialog>
         
     <!-- Displays the keyboard on the page   -->
-    <div class="keyboard">
-       <div class="row" id="row-1">
-           <button class="key">Q</button>
-           <button class="key">W</button>
-           <button class="key">E</button>
-           <button class="key">R</button>
-           <button class="key">T</button>
-           <button class="key">Y</button>
-           <button class="key">U</button>
-           <button class="key">I</button>
-           <button class="key">O</button>
-           <button class="key">P</button>
-       </div>
-       <div class="row" id="row-2">
-           <button class="key">A</button>
-           <button class="key">S</button>
-           <button class="key">D</button>
-           <button class="key">F</button>
-           <button class="key">G</button>
-           <button class="key">H</button>
-           <button class="key">J</button>
-           <button class="key">K</button>
-           <button class="key">L</button>
-           
-          
-       </div>
-       <div class="row" id="row-3">
-        <button class="key" id="enter">ent</button>
-           <button class="key">Z</button>
-           <button class="key">X</button>
-           <button class="key">C</button>
-           <button class="key">V</button>
-           <button class="key">B</button>
-           <button class="key">N</button>
-           <button class="key">M</button>
-           <button class="key"id="backspace">&#8678;</button>
-       </div>
+<div class="keyboard">
+    <div class="row" id="row-1">
+        <button class="key">Q</button>
+        <button class="key">W</button>
+        <button class="key">E</button>
+        <button class="key">R</button>
+        <button class="key">T</button>
+        <button class="key">Y</button>
+        <button class="key">U</button>
+        <button class="key">I</button>
+        <button class="key">O</button>
+        <button class="key">P</button>
+    </div>
 
+    <div class="row" id="row-2">
+        <button class="key">A</button>
+        <button class="key">S</button>
+        <button class="key">D</button>
+        <button class="key">F</button>
+        <button class="key">G</button>
+        <button class="key">H</button>
+        <button class="key">J</button>
+        <button class="key">K</button>
+        <button class="key">L</button>    
+    </div>
+
+    <div class="row" id="row-3-keyboard">
+        <button class="key" id="enter">ent</button>
+        <button class="key">Z</button>
+        <button class="key">X</button>
+        <button class="key">C</button>
+        <button class="key">V</button>
+        <button class="key">B</button>
+        <button class="key">N</button>
+        <button class="key">M</button>
+        <button class="key"id="backspace">&#8678;</button>
+    </div>
 </div>
 
 </body>
-<script type="module"  src="index.js"></script>
 <script src="wordle-Words.js"></script>
+<script type="module"  src="index.js"></script>
 </html>

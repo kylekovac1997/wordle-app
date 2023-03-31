@@ -6,18 +6,19 @@ function gameFunction() {
   let currentColumn = 0;
   let currentWord = '';
   let guesses = 5;
-  console.log(attempts)
+  let gridColumns = [];
   const randomWord = () => {
     currentWord = validWords[Math.floor(Math.random() * validWords.length)];
   }
-
+  
   const initializeWordleGrid = () => {
+    randomWord()
     let wordleGrid = document.getElementById('wordle_grid');
     wordleGrid.innerHTML = '';
-    randomWord();
+    
     console.log('currentWord:', currentWord);
     // Creates an array to hold all grid columns
-    let gridColumns = [];
+
   
     // Creates the grid row
     for (let i = 0; i < attempts; i++) {
@@ -48,7 +49,6 @@ function gameFunction() {
     // Return the array of grid columns
     return gridColumns;
   }
-  
   
 
   const keyboard = (gridColumns) => {
@@ -92,7 +92,7 @@ function gameFunction() {
     }
   }
   // Get the array of grid columns
-  let gridColumns = initializeWordleGrid(); 
+  gridColumns = initializeWordleGrid(); 
   
   // Pass the array of grid columns to the keyboard function
   keyboard(gridColumns); 
@@ -100,7 +100,7 @@ function gameFunction() {
   // This checks the players input.
   const checkWord = () => {
     console.log(`Checking row ${currentRow}...`);
-      
+    
     const wordColumns = document.querySelectorAll('.grid-row#row-' + currentRow + ' .grid-column');
     const joinedWord = [...wordColumns].map(column => column.textContent).join('');
     const correctColumns = [];
@@ -108,11 +108,10 @@ function gameFunction() {
     const incorrectColumns = [];
     let correctCount = 0;
     console.log(`Joined word: ${joinedWord}`);
-      
+    
     if (joinedWord === '') {
       return;
     }
-  
     if (validWords.includes(joinedWord)) {
       for (let i = 0; i < joinedWord.length; i++) {
         const userInput = wordColumns[i].textContent;
@@ -150,50 +149,33 @@ function gameFunction() {
         for (let column of incorrectColumns) {
           column.classList.add('incorrect');
         }
-        guesses--;
-        if(guesses === 0){
-          lost()
-        } else if (currentColumn.nextElementSibling) {
-          currentColumn = currentColumn.nextElementSibling;
-        } else {
-          currentColumn = wordColumns[0];
-          if (currentRow === attempts - 1) {
-            currentRow = 0;
-          } else {
-            currentRow++;
-          }
-        }
       }
-    } else {
-      alert('Invalid word');
-      guesses--;
       if(guesses === 0){
         lost()
-      } else {
-        wordColumns.forEach(column => {
-          column.textContent = '';
-          column.classList.remove('correct', 'partially-correct', 'incorrect');
-        });
-        if (currentColumn.nextElementSibling) {
-          currentColumn = currentColumn.nextElementSibling;
-        } else {
-          currentColumn = wordColumns[0];
-          if (currentRow === attempts - 1) {
-            currentRow = 0;
-          } else {
-            currentRow++;
-          }
-        }
       }
+      document.getElementById('guesses-counter').textContent = guesses;
+    } else {
+      alert('Invalid word');
+      guesses++;
+      wordColumns.forEach(column => {
+        column.textContent = '';
+        column.classList.remove('correct', 'partially-correct', 'incorrect');
+      });
+      currentRow -= 1;
+      if (currentRow < 0) {
+        currentRow = attempts - 1;
+      }
+      currentColumn = gridColumns[currentRow * 5];
+      currentColumn.focus();
     }
+    
     console.log(guesses)
   };
   
   
-  
   const win = () => {
     let winDialog = document.getElementById('win');
-    let winText = document.createElement('p');
+    let winText = document.getElementById('win_Text');
     winText.textContent = `Your word was ${currentWord}`;
     winDialog.appendChild(winText);
     winDialog.showModal();
@@ -209,54 +191,97 @@ function gameFunction() {
   
   const lost = () => {
     let lostDialog = document.getElementById('lost');
-    let lostText = document.createElement('p');
-    lostText.textContent = `Your word was ${currentWord}`;
-    lostDialog.appendChild(lostText);
-    lostDialog.showModal();
-    let playAgainLostBtn = document.getElementById('play_Again_Lost');
+    let lostText = document.getElementById('lost_Text');
+    if (lostText) {
+      lostText.textContent = `Your word was ${currentWord}`;
+    }
+    if (lostDialog) {
+      lostDialog.appendChild(lostText);
+      lostDialog.showModal();
+      let playAgainLostBtn = document.getElementById('play_Again_Lost');
+    
+      playAgainLostBtn.addEventListener('click', () => {
+        if (lostDialog) {
+          lostDialog.close();
+        }
+        if (lostText) {
+          lostText.textContent = '';
+        }
+        resetGame()
+      });
+    }
+  };
   
-    playAgainLostBtn.addEventListener('click', () => {
-      lostText.textContent = ''; 
-      lostDialog.close();
-      resetGame()
-     
-    });
+  const giveUp = () => {
+    let giveUpDialog = document.getElementById('give_Up_Dialog');
+  
+    if (!giveUpDialog.hasAttribute('open')) {
+      let giveUpText = document.getElementById('give_Up_Text');
+      giveUpText.textContent = `The word was ${currentWord}`;
+      giveUpDialog.appendChild(giveUpText);
+      giveUpDialog.showModal()
+      let playAgainBtn = document.getElementById('play_Again');
+  
+      playAgainBtn.addEventListener('click', ()=>{
+        giveUpDialog.close();
+        giveUpText.textContent = ''; 
+        resetGame();
+      });
+    };
   };
   
 
   const resetGame = () => {
-    // Clear the classes of all columns
-    const columns = document.querySelectorAll('.grid-column');
-    for (let i = 0; i < columns.length; i++) {
-      columns[i].classList.remove('correct', 'partially-correct', 'incorrect');
-    }
-   // Clear the wordle grid
-   const wordleGrid = document.getElementById('wordle_grid');
-   wordleGrid.innerHTML = '';
- 
-   // Reset game variables
-   currentRow = 0;
-   currentColumn = 0;
-   currentWord = '';
-   guesses = 5;
- 
-  // Restart the game
-  let gridColumns = initializeWordleGrid();
-  keyboard(gridColumns);
+    // Clear the wordle grid
+    const wordleGrid = document.getElementById('wordle_grid');
+    wordleGrid.innerHTML = '';
+  
+    // Reset game variables
+    currentRow = 0;
+    currentColumn = 0;
+    currentWord = '';
+    guesses = 5;
+    gridColumns = [];
+  
+    // console.log(currentWord);
+    randomWord();
+    // Restart the game
+    gameFunction()
   };
   
   
-    
+  
+  const giveUpButton = document.getElementById('give_Up');
+  giveUpButton.addEventListener('click', () => {
+    giveUp(); // Call the giveUp function
+  });
+
+  
+
+ 
 }
 
-    window.addEventListener('load', function() {
+
+
+  window.addEventListener('load', function() {
     var dialog = document.getElementById('game_Rules');
     var startButton = document.getElementById('start_Game');
-  
+    
+    const click = new Audio("click.mp3");
+    const buttons = document.querySelectorAll("button");
+   
+    buttons.forEach(button =>{
+      button.addEventListener('click', ()=>{
+        click.play();
+      })
+    }) 
     dialog.style.display = 'block';
-  
+    
     startButton.addEventListener('click', function() {
+      document.getElementById('give_Up').style.display = 'block';
+      document.getElementById('main_Header').style.display = 'block';
+      document.getElementById('remaining-guesses').style.display = "block"
       dialog.style.display = 'none';
-      gameFunction()
+      gameFunction();  
     });
   });
