@@ -200,7 +200,6 @@ function gameFunction() {
       lostText.textContent = '';
       resetGame()
     });
-    }
   };
   
   //Give up logic
