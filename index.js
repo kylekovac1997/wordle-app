@@ -1,27 +1,27 @@
 import { validWords } from './wordle-Words.js';
 
 function gameFunction() {
-  const attempts = 6;
+  let currentWord = "";
+  const currentRows = 6;
   let currentRow = 0;
   let currentColumn = 0;
-  let currentWord = '';
   let guesses = 5;
   let gridColumns = [];
-  const randomWord = () => {
-    currentWord = validWords[Math.floor(Math.random() * validWords.length)];
-  }
+  document.getElementById('guesses-counter').textContent = 6;
+  let wordleGrid = document.getElementById('wordle_grid');
+  wordleGrid.innerHTML = '';
   
+
   const initializeWordleGrid = () => {
-    randomWord()
-    let wordleGrid = document.getElementById('wordle_grid');
-    wordleGrid.innerHTML = '';
+  // Reset game state
+   currentWord = '';
+    guesses = 5;
+    currentWord = validWords[Math.floor(Math.random() * validWords.length)];
     
     console.log('currentWord:', currentWord);
-    // Creates an array to hold all grid columns
-
   
     // Creates the grid row
-    for (let i = 0; i < attempts; i++) {
+    for (let i = 0; i < currentRows; i++) {
       let gridRow = document.createElement('div');
       gridRow.className = 'grid-row';
       gridRow.id = 'row-' + i;
@@ -33,16 +33,9 @@ function gameFunction() {
         gridColumn.className = 'grid-column';
         gridColumn.id = 'column-' + j;
         gridColumn.value = currentWord[j];
+        gridColumn.textContent = '';
         gridRow.appendChild(gridColumn);
         gridColumns.push(gridColumn);
-  
-        // Sets the current column to the first empty column in the row
-        if (currentRow === i && currentColumn === 0 && gridColumn.textContent === '') {
-          currentColumn = gridColumn;
-        }
-        gridColumn.addEventListener('input', ()=>{
-          currentColumn = this;
-        })
       }
     }
   
@@ -73,7 +66,7 @@ function gameFunction() {
             checkWord();
             guesses--;
             currentRow += 1;        
-            if (currentRow >= attempts) {
+            if (currentRow >= currentRows) {
               currentRow = 0;
             }
             currentColumn = gridColumns[currentRow * 5];
@@ -150,7 +143,7 @@ function gameFunction() {
           column.classList.add('incorrect');
         }
       }
-      if(guesses === 0){
+      if(guesses === 0 && correctCount < 5){
         lost()
       }
       document.getElementById('guesses-counter').textContent = guesses;
@@ -163,16 +156,19 @@ function gameFunction() {
       });
       currentRow -= 1;
       if (currentRow < 0) {
-        currentRow = attempts - 1;
+        currentRow = currentRows - 1;
       }
       currentColumn = gridColumns[currentRow * 5];
       currentColumn.focus();
+      if(guesses === 0){
+        lost()
+      }
     }
     
     console.log(guesses)
   };
   
-  
+  //Win logic
   const win = () => {
     let winDialog = document.getElementById('win');
     let winText = document.getElementById('win_Text');
@@ -180,7 +176,8 @@ function gameFunction() {
     winDialog.appendChild(winText);
     winDialog.showModal();
     let playAgainWinBtn = document.getElementById('play_Again_Win');
-  
+    let lostDialog = document.getElementById('lost');
+    lostDialog.close();
     playAgainWinBtn.addEventListener('click', () => {
       winText.textContent = ''; 
       winDialog.close();
@@ -212,41 +209,25 @@ function gameFunction() {
     }
   };
   
+  //Give up logic
   const giveUp = () => {
     let giveUpDialog = document.getElementById('give_Up_Dialog');
-  
     if (!giveUpDialog.hasAttribute('open')) {
-      let giveUpText = document.getElementById('give_Up_Text');
-      giveUpText.textContent = `The word was ${currentWord}`;
-      giveUpDialog.appendChild(giveUpText);
       giveUpDialog.showModal()
       let playAgainBtn = document.getElementById('play_Again');
   
       playAgainBtn.addEventListener('click', ()=>{
         giveUpDialog.close();
-        giveUpText.textContent = ''; 
         resetGame();
       });
     };
   };
   
-
+//Resets the game
   const resetGame = () => {
-    // Clear the wordle grid
-    const wordleGrid = document.getElementById('wordle_grid');
-    wordleGrid.innerHTML = '';
-  
-    // Reset game variables
-    currentRow = 0;
-    currentColumn = 0;
-    currentWord = '';
     guesses = 5;
-    gridColumns = [];
-    document.getElementById('guesses-counter').textContent = 6;
-    // console.log(currentWord);
-    randomWord();
-    // Restart the game
     gameFunction()
+  
   };
   
   
@@ -262,8 +243,8 @@ function gameFunction() {
 }
 
 
-
-  window.addEventListener('load', function() {
+// Loads the website first
+  window.addEventListener('load', () =>{
     var dialog = document.getElementById('game_Rules');
     var startButton = document.getElementById('start_Game');
     
