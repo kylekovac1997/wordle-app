@@ -190,23 +190,16 @@ function gameFunction() {
   const lost = () => {
     let lostDialog = document.getElementById('lost');
     let lostText = document.getElementById('lost_Text');
-    if (lostText) {
-      lostText.textContent = `Your word was ${currentWord}`;
-    }
-    if (lostDialog) {
-      lostDialog.appendChild(lostText);
-      lostDialog.showModal();
-      let playAgainLostBtn = document.getElementById('play_Again_Lost');
+    lostText.textContent = `Your word was ${currentWord}`;
+    lostDialog.appendChild(lostText);
+    lostDialog.showModal();
+    let playAgainLostBtn = document.getElementById('play_Again_Lost');
     
-      playAgainLostBtn.addEventListener('click', () => {
-        if (lostDialog) {
-          lostDialog.close();
-        }
-        if (lostText) {
-          lostText.textContent = '';
-        }
-        resetGame()
-      });
+    playAgainLostBtn.addEventListener('click', () => {
+      lostDialog.close();
+      lostText.textContent = '';
+      resetGame()
+    });
     }
   };
   
