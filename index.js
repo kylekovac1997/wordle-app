@@ -245,7 +245,7 @@ function gameFunction() {
 
 
 // Loads the website first
-  window.addEventListener('load', function() {
+  window.addEventListener('load', () =>{
     var dialog = document.getElementById('game_Rules');
     var startButton = document.getElementById('start_Game');
     
