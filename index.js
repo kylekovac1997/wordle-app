@@ -242,7 +242,7 @@ function gameFunction() {
     currentWord = '';
     guesses = 5;
     gridColumns = [];
-  
+    document.getElementById('guesses-counter').textContent = guesses;
     // console.log(currentWord);
     randomWord();
     // Restart the game
