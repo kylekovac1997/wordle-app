@@ -14,7 +14,7 @@
     <div id="wordle_grid"></div>
 
     <section id="side_table">
-        <div id="remaining-guesses" class="remaining-guesses">Remaining Attempts: <span id="guesses-counter">6</span></div>
+        <div id="remaining-guesses" class="remaining-guesses">Remaining Attempts: <span id="guesses-counter"></span></div>
         <button id="give_Up" >GIVE UP</button> 
     </section>
 </div>
@@ -50,7 +50,7 @@
 </dialog>
         
     <!-- Displays the keyboard on the page   -->
-<div class="keyboard">
+<div id="keyboard">
     <div class="row" id="row-1">
         <button class="key">Q</button>
         <button class="key">W</button>
@@ -90,6 +90,6 @@
 </div>
 
 </body>
-<script src="wordle-Words.js"></script>
+<script type="module" src="wordle-Words.js"></script>
 <script type="module"  src="index.js"></script>
 </html>
