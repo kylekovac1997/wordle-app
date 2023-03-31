@@ -2,7 +2,7 @@ import { validWords } from './wordle-Words.js';
 
 function gameFunction() {
   let currentWord = "";
-  const attempts = 6;
+  const currentRows = 6;
   let currentRow = 0;
   let currentColumn = 0;
   let guesses = 5;
@@ -21,7 +21,7 @@ function gameFunction() {
     console.log('currentWord:', currentWord);
   
     // Creates the grid row
-    for (let i = 0; i < attempts; i++) {
+    for (let i = 0; i < currentRows; i++) {
       let gridRow = document.createElement('div');
       gridRow.className = 'grid-row';
       gridRow.id = 'row-' + i;
@@ -66,7 +66,7 @@ function gameFunction() {
             checkWord();
             guesses--;
             currentRow += 1;        
-            if (currentRow >= attempts) {
+            if (currentRow >= currentRows) {
               currentRow = 0;
             }
             currentColumn = gridColumns[currentRow * 5];
@@ -156,7 +156,7 @@ function gameFunction() {
       });
       currentRow -= 1;
       if (currentRow < 0) {
-        currentRow = attempts - 1;
+        currentRow = currentRows - 1;
       }
       currentColumn = gridColumns[currentRow * 5];
       currentColumn.focus();

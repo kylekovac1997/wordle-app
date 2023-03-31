@@ -8,7 +8,7 @@ body{
 header{
     font-size: 3em;
     color: rgb(37, 37, 37);
-    text-shadow: 1px 1px 0 #fff, 2px 2px 0 rgb(141, 163, 204), 3px 3px 0 rgb(116, 144, 192), 4px 4px 0 rgb(93, 128, 185), 5px 5px 0 rgba(71, 114, 182, 0.863), 6px 6px 0 rgb(52, 103, 177), 7px 7px 0 rgb(40, 90, 170);
+    text-shadow: 1px 1px 0 rgb(255, 254, 254), 2px 2px 0 rgb(141, 163, 204), 3px 3px 0 rgb(116, 144, 192), 4px 4px 0 rgb(93, 128, 185), 5px 5px 0 rgba(71, 114, 182, 0.863), 6px 6px 0 rgb(52, 103, 177), 7px 7px 0 rgb(40, 90, 170);
     letter-spacing: 2px;
     font-weight: bold;
     margin: 20px 0;
@@ -17,7 +17,7 @@ header{
 h2{
     font-size: 2em;
     color: rgb(37, 37, 37);
-    text-shadow: 1px 1px 0 #fff, 2px 2px 0 rgb(141, 163, 204), 3px 3px 0 rgb(116, 144, 192), 4px 4px 0 rgb(93, 128, 185), 5px 5px 0 rgba(71, 114, 182, 0.863), 6px 6px 0 rgb(52, 103, 177), 7px 7px 0 rgb(40, 90, 170);
+    text-shadow: 1px 1px 0 rgb(255, 255, 255), 2px 2px 0 rgb(141, 163, 204), 3px 3px 0 rgb(116, 144, 192), 4px 4px 0 rgb(93, 128, 185), 5px 5px 0 rgba(71, 114, 182, 0.863), 6px 6px 0 rgb(52, 103, 177), 7px 7px 0 rgb(40, 90, 170);
     letter-spacing: 2px;
     font-weight: bold;
     margin: 20px 0;
@@ -34,7 +34,7 @@ h2{
 #start_Game{
     position:relative; 
     padding: 10px 20px;
-    background-color: #f44336;
+    background-color: #ec4034;
     color: rgb(247, 243, 243);
     font-size: 16px;
     border: none;
@@ -66,7 +66,7 @@ h2{
 }
   
 #guesses-counter {
-    color: #f44336; /* Change the color to your preference */
+    color: #e93c2f; 
 }
 
 #wordle_grid{
@@ -120,7 +120,7 @@ h2{
     border-radius: 30%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: all 0.1s ease-in-out;
-    animation: pulse 2s infinite; /* Add pulse animation */
+    animation: pulse 2s infinite; 
 }
   
 .grid-column:active {
