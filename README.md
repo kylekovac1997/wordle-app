@@ -6,7 +6,7 @@ A simple implementation of the popular Wordle game, where the player has to gues
 To set up the project locally, please follow these steps:
 
 ```
-git clone https://git@github.com:YOUR_USERNAME/wordle-app.git
+git clone https://git@github.com:Kylekovac1997/wordle-app.git
 ```
 
 ## Features
