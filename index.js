@@ -178,7 +178,9 @@ function gameFunction() {
     let playAgainWinBtn = document.getElementById('play_Again_Win');
     let lostDialog = document.getElementById('lost');
     lostDialog.close();
+    const click = new Audio("round_end.wav");
     playAgainWinBtn.addEventListener('click', () => {
+      click.play()
       winText.textContent = ''; 
       winDialog.close();
       resetGame()
@@ -189,6 +191,7 @@ function gameFunction() {
   const lost = () => {
     let lostDialog = document.getElementById('lost');
     let lostText = document.getElementById('lost_Text');
+    const click = new Audio("end.wav");
     if (lostText) {
       lostText.textContent = `Your word was ${currentWord}`;
     }
@@ -204,7 +207,8 @@ function gameFunction() {
         if (lostText) {
           lostText.textContent = '';
         }
-        resetGame()
+        click.play();
+        resetGame();
       });
     }
   };
@@ -215,8 +219,9 @@ function gameFunction() {
     if (!giveUpDialog.hasAttribute('open')) {
       giveUpDialog.showModal()
       let playAgainBtn = document.getElementById('play_Again');
-  
+      const click = new Audio("end.wav");
       playAgainBtn.addEventListener('click', ()=>{
+        click.play();
         giveUpDialog.close();
         resetGame();
       });
