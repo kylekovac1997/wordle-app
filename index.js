@@ -255,7 +255,8 @@ function gameFunction() {
     
     const click = new Audio("click.mp3");
     const buttons = document.querySelectorAll("button");
-   
+    const startGameSound = new Audio("round_end.wav");
+    
     buttons.forEach(button =>{
       button.addEventListener('click', ()=>{
         click.play();
@@ -264,6 +265,7 @@ function gameFunction() {
     dialog.style.display = 'block';
     
     startButton.addEventListener('click', function() {
+      startGameSound.play();
       document.getElementById('give_Up').style.display = 'block';
       document.getElementById('main_Header').style.display = 'block';
       document.getElementById('remaining-guesses').style.display = "block"
